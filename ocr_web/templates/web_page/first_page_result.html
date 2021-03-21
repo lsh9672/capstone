@@ -1,0 +1,84 @@
+{% extends 'base.html'%}
+{% block content %}
+<style>
+    #selectBox
+    {
+        border:1px;
+        padding:5px;
+    }
+    .container
+    {
+        width:100%;
+        height:700px;
+        background-color: #ffffff;
+        margin:auto;
+        margin-top:30px;
+        box-sizing:content-box;
+        padding-top: 5px;
+        border-width:5px;
+        border-color:coral;
+        border-style: inset;
+    }
+    #select_button
+    {
+        width:100px;
+        height:200px;
+        background-color: #ffffff;
+    }
+    #ocr_content
+    {
+        width:90%;
+        height:600px;
+        margin: auto;
+        margin-top: 10px;
+        text-align: center;
+        background-color:forestgreen;
+    }
+    .result_box
+    {
+        width: 100%;
+        height:600px;
+        background-color:#ffffff;
+        border-width: 5px;
+        border-color:coral;
+        border-style:inset;
+        margin:5px;
+    }
+    #select_file_type
+    {
+        width:100px;
+        height:30px;
+        float:right;
+        margin-right: 50px;
+    }
+    
+</style>
+<div class=container>
+    <span id = select_button>
+      
+        <input id="select_text1 "type="button" value="TEXT" onclick="alert('TEXT')">
+        <input id="select_text2 "type="button" value="TABLE" onclick="alert('TABLE')">
+    </span>
+    <div id=ocr_content>
+        <!--'result_ocr 삭제할수 있도록 우측에 쓰레기통 모양 버튼추가 필요'-->
+        <span id="original_ocr" class="result_box">asdfadfad</span>
+        <span id="result_ocr" class="result_box">asdfsad</span>
+    </div>
+</div>
+<span id=select_file_type>
+    <select name="file_type" id="file_select">
+        <option value="default">==선택==</option>
+        <option value="txt"><b>.txt</b></option>
+        <option value="csv"><b>.csv</b></option>
+    </select>
+    <div>
+        <input type="button" id="download_ok" value="Download" onclick=
+        "alert('select  '+document.getElementById('file_select').options[document.getElementById('file_select').options.selectedIndex].value)">
+    </div>
+</span>
+<script type="text/javascript">
+    var data='{{test_request}}'
+    var data2={"asdfasd":05}
+    document.write(data)
+</script>
+{% endblock %}
