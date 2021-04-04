@@ -1,0 +1,81 @@
+{% extends 'base.html'%}
+{% block content %}
+<style>
+    #dropzone
+    {
+        border:2px dotted #3292A2;
+        width:40%;
+        height:800px;
+        color:#92AAB0;
+        text-align:center;
+        font-size:24px;
+        padding-top:12px;
+        margin-top:10px;
+        margin-left:100px;
+    }
+    #stateButton
+    {
+        width:40%;
+        height:100px;
+        color:#000000;
+        text-align:center;
+        margin-top:-800px;
+        font-size:20px;
+        float:right;
+    }
+   
+</style>
+<scirpt src="static/drag_drop.js"></scirpt>
+<div id="dropzone">마우스로 파일을 드래그 하거나 여기를 클릭해서 업로드 해주세요</div> 
+
+
+<div id= "stateButton">
+    <form action='/' method="POST">
+        <input type="submit" name="btn_select" value="일반">
+        <input type="submit" name="btn_select" value="지정">
+    </form>
+    <form>
+        <select name="selection_list">
+            {% if select_list %}
+                {% for item in select_list%}
+                    <option value="item">{{item}}</option>
+                {% endfor %}
+            {% else %}
+                <option value="none">template</option>
+            {% endif %}
+        </select>
+    </form>
+    {% if test2=="일반" %}
+        <label><input type="checkbox" name="ocr_type" value="extraction_text">텍스트</label>
+        <label><input type="checkbox" name="ocr_type" value="extraction_table">표</label>
+        <label><input type="checkbox" name="ocr_type" value="extraction_picture">그림</label><br>
+        <form action ="/2" method="GET">
+            <input type="submit" name="result_change" value="텍스트 변환">
+        </form>
+    {% elif test2=="지정"%}
+        <div id=table_scroll style="width:70%; height: 600px; overflow:auto; border-width:5px; border-color:#000000; border-style:solid">
+            <table width="100% "border="1" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th>No.</th>
+                    <th>Value</th>
+                </tr>
+                <!--tr은 제목이 아닌 일반 표를 말하며 이부분은 인식한 값에 따라서 동적으로 생성되도록 해야한다-->
+                <tr>
+                    <td>adf</td>
+                    <td>adf1</td>
+                </tr>
+            </table>
+        </div>
+        <div id=type_select_btn style="width:200px; height:100px">
+            <input style="width:45%; height:50%; margin:3.5px" type="button" id="area_designation" value="AREA+"><br>
+            <input type="button" id="save" value="SAVE" style="width:45%; height:50%; margin:3.5px">
+            <form action ="/2" method="GET">
+                <input type="submit" name="result_change" value="텍스트 변환" style="width:60%; height:50%;margin:3.5px">
+            </form>
+        </div> 
+    {% endif %}
+</div>
+
+
+
+{% endblock %}
