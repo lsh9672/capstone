@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OCR</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/ocr.css">
+    <link rel="stylesheet" href="/css/crop.css">
+    <link rel="stylesheet" href="/css/imgmap.css">
+</head>
+
+<body>
+    <!-- 네비게이션 -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div clas="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="flase">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="ocr.html">OCR</a>
+            </div>
+            <!-- 네비게이션 목록 -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="ocr.html">일반<span class="sr-only"></span></a></li>
+                    <li class="active-menu"><a href="javascript:authorization('custom.html')">커스텀</a></li>
+                    <li><a href="javascript:authorization('templateList.html')">템플릿</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">가이드<sapn class="caret"></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="support.html?supportName=ocr">일반 텍스트 추출</a>
+                            <li><a href="support.html?supportName=custom">커스텀 텍스트 추출</a>
+                            <li><a href="support.html?supportName=template">템플릿</a>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- 검색창 -->
+                <!-- <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="내용을 입력하세요.">
+                    </div>
+                    <button type="submit" class="btn btn-default">검색</button>
+                </form> -->
+                <!-- 로그인(비회원) -->
+                <div id="unconnected">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="loginForm.html"><span class="glyphicon glyphicon-log-in">&nbsp;</span>로그인</a></li>
+                        <li><a href="registerForm.html"><span class="glyphicon glyphicon-check">&nbsp;</span>회원가입</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 로그인(회원) -->
+                <div id="connected">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="javascript:logout()"><span class="glyphicon glyphicon-log-out">&nbsp;</span>
+                                로그아웃</a></li>
+                    </ul>
+                </div>
+            </div>
+    </nav>
+
+    <!-- 메인 내용 -->
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <h3>OCR 결과</h3>
+                <hr><br>
+            </div>
+        </div>
+        <form id="template_result_area">
+            <div class="container">
+                <div class="row my-5">
+                    <!-- 템플릿 명 -->
+                    <div class="row form-group">
+                        <!-- <div class="col-lg-1">
+                            <label for="template_name" style="font-size: medium;">템플릿 명</label>
+                        </div> -->
+                        <!-- <div class="col-lg-4">
+                            <input type="text" name="template_name" id="template_name" class="form-control"
+                            placeholder="템플릿 명 입력" value="">
+                        </div> -->
+                    </div>
+                    <img id="src" src="" style="display: none;"></img>
+                </div>
+                <div class="row my-5">
+                    <div class="col-md-12">
+                        <div id="pic_container">
+                            <!-- 결과 이미지 생성 -->
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-1">번호</th>
+                                        <th class="col-md-6 text-center">이미지</th>
+                                        <th class="col-md-5 text-center">텍스트</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="result_table">
+                                    <!-- 결과 이미지 및 텍스트 생성 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-5">
+                    <div class="col-lg-12"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="download()">
+                                다운로드</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <br><br><br>
+    </div>
+
+
+    <!-- 하단 내용 -->
+    <footer style="background-color: #000000; color: #ffffff">
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-sm-2" style="text-align: center;">
+                    <h5>Copyright &copy; 2021</h5>
+                    <h5>Capston Design</h5>
+                </div>
+                <div class="col-sm-8" style="text-align: left;">
+                    <h4>OCR Web Service</h4>
+                    <h4>사용자에게 이미지를 문자로 변환해주는 웹 서비스</h4>
+                </div>
+                <div class="col-sm-2" style="text-align: center;">
+                    <div class="btn-group" role="group">
+                        <a href="/ocr.html" class="list-group-item">홈</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+
+    <!-- 기본 기능 -->
+    <script src="/js/function.js"></script>
+
+    <!-- 이미지 크롭 -->
+    <script src="/js/imagemap/imgmap_packed.js"></script>
+    <script src="/js/imagemap/default_interface.js"></script>
+    <script src="/js/imagemap/u.js"></script>
+    <!-- <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-729919-1', 'auto');
+        ga('send', 'pageview');
+    </script> -->
+
+    <!-- 결과 페이지 동적 생성 -->
+    <script>
+        $(document).ready(function () {
+            // var template_name = JSON.parse(sessionStorage.getItem("select_template")).template_name;
+            // $('input[template_name]').val(template_name);
+            
+            var ocr_result = JSON.parse(sessionStorage.getItem("ocr_result"));
+            var size = ocr_result.template_return_info.length;
+
+            for (i = 0; i < size; i++) {
+                var index = i + 1;
+                var info = ocr_result.template_return_info[i];
+                var result_img = "data:image/png;base64," + info.image;
+                var result_text = info.result;
+
+                var Result = "<tr>";
+                Result += "<td>" + index + "</td>";
+                Result += "<td><img class='result_img' src='" + result_img + "'></td>";
+                Result += "<td>" + info.item_name + "<br><textarea name='template_result_text' class='template_result_text form-control' value=" + + "></td></tr>";
+                $('#result_table').append(Result);
+                $('textarea[name="template_result_text"]').eq(i).val(result_text);
+            }
+        });
+    </script>
+</body>
+
+</html>
