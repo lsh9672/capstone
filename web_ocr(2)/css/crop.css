@@ -1,0 +1,84 @@
+/* 이미지 크롭 미리보기 */
+#pic_container{
+	position : relative;
+	width: 100%;
+	height: 500px;
+	border: solid 0 #efefef;
+    border-top-color: rgb(239, 239, 239);
+    border-top-style: solid;
+    border-top-width: 0px;
+    border-right-color: rgb(239, 239, 239);
+    border-right-style: solid;
+    border-right-width: 0px;
+    border-bottom-color: rgb(239, 239, 239);
+    border-bottom-style: solid;
+    border-bottom-width: 0px;
+    border-left-color: rgb(239, 239, 239);
+    border-left-style: solid;
+    border-left-width: 0px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+	overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+/* 이미지 영역 박스 */
+#pic_container .imgmap_label {
+    font: bold 20px Arial;
+    color: rgb(52, 57, 65);
+    padding: 1px 2px;
+    font-size: 50px;
+}
+
+/* 템플릿 설정 구역 */
+#form_container {
+    white-space: nowrap;
+    overflow: auto;
+    height: 370px;
+    border-top: solid 1px #bfc1c5;
+}
+
+/* 이미지 영역 옵션 박스 */
+#option_container {
+    font-size: 15px;
+}
+
+/* 이미지 영역 추가 박스 */
+#form_container {
+    white-space: nowrap;
+    overflow: auto;
+    border-top: solid 1px #bfc1c5;
+}
+
+/* 이미지 좌표 영역 번호 표시 텍스트 박스 */
+.img_id {
+    font-weight: bold;
+    width: 25px;
+    padding: 0 3px;
+    text-align: right;
+    border: none!important;
+    background: none;
+}
+
+/* 이미지 좌표 영역 체크박스 */
+/* .img_active {
+    
+} */
+
+/* 이미지 타이틀 텍스트 박스 */
+.img_alt {
+    font-weight: bold;
+}
+
+/* 결과 이미지 */
+.result_img {
+    object-fit: scale-down;
+}
+
+.template_result_text {
+    color:black;
+    resize: none;
+}

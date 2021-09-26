@@ -1,0 +1,88 @@
+/* 전체영역 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+* {
+    font-family: 'Nanum Gothic';
+}
+a {
+    color: #000000;
+    text-decoration: none;
+}
+a:hover {
+    color: #bbbbbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+html, body {
+    padding-top: 40px;
+    margin: 0;
+    height: 100%;
+    width: 100%; 
+    display: flex; 
+    flex-direction: column;
+}
+footer {
+    padding: 20px 0;
+}
+.content{
+    flex: 1;
+}
+
+/* 네비게이션 영역 */
+.navbar-default {   /* 배경 색상 */
+    background-color: black;
+    border-color: black;
+}
+.navbar-default .navbar-brand { /* 네비게이션 타이틀 색상 */
+    color:rgb(070,163,210);
+    font-size: 24px;
+    font-weight: bolder;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:fcous { /* 네비게이션 타이틀에 마우스를 올렸을 경우 */
+    background-color: transparent;
+    color: #bbbbbb;
+}
+.navbar-default .navbar-nav > .active-menu > a,
+.navbar-default .navbar-nav > .active-menu > a:hover,
+.navbar-default .navbar-nav > .active-menu > a:focus {   /* 현재 선택된 네비게이션 색상 이벤트 */
+    color: #bbbbbb;
+    background-color: black;
+    display: block;
+    width: cover;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {   /* 네비게이션 목록에 마우스를 올렸을 경우 */
+    color: #bbbbbb;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {   /* 드랍다운이 열렸을 경우 색상 이벤트 */
+    color: #bbbbbb;
+    background-color: black;
+    text-decoration: none;
+}
+.navbar-default .navbar-nav > li > a {  /* 네비게이션 목록 전체 글자 색상 */
+    color: white;
+    font-size: 18px;
+}
+@media (max-width: 50%) { /* 해상도가 작을 경우, 목록에 마우스를 올렸을 경우 */
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:foucs {
+        color: #bbbbbb;
+    }
+}
+
+/* Donwload_Btn */
+.btn-download {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+  
+  /* Darker background on mouse-over */
+.btn-download:hover {
+    background-color: RoyalBlue;
+}
