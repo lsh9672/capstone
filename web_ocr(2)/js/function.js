@@ -196,7 +196,7 @@ function downloadTable(e) {
         url: table_download_API,
         type: 'GET',
         contentType: false,
-        caches: false,
+        cache: false,
         processData: false,
         xhrFields: {
             responseType: 'blob'
