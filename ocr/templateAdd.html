@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OCR</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/ocr.css">
+    <link rel="stylesheet" href="/css/crop.css">
+    <link rel="stylesheet" href="/css/d_d.css">
+</head>
+
+<body>
+    <!-- 네비게이션 -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div clas="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="flase">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/ocr.html">OCR</a>
+            </div>
+            <!-- 네비게이션 목록 -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="ocr.html">일반<span class="sr-only"></span></a></li>
+                    <li><a href="javascript:authorization('custom.html')">커스텀</a></li>
+                    <li class="active-menu"><a href="javascript:authorization('templateList.html')">템플릿</a></li>
+                    <!-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">가이드<sapn class="caret"></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="support.html?supportName=ocr">일반 텍스트 추출</a>
+                            <li><a href="support.html?supportName=custom">커스텀 텍스트 추출</a>
+                            <li><a href="support.html?supportName=template">템플릿</a>
+                        </ul>
+                    </li> -->
+                </ul>
+                <!-- 검색창 -->
+                <!-- <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="내용을 입력하세요.">
+                    </div>
+                    <button type="submit" class="btn btn-default">검색</button>
+                </form> -->
+                <!-- 로그인(비회원) -->
+                <div id="unconnected">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="loginForm.html"><span class="glyphicon glyphicon-log-in">&nbsp;</span>로그인</a></li>
+                        <li><a href="registerForm.html"><span class="glyphicon glyphicon-check">&nbsp;</span>회원가입</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 로그인(회원) -->
+                <div id="connected">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="javascript:logout()"><span class="glyphicon glyphicon-log-out">&nbsp;</span>
+                                로그아웃</a></li>
+                    </ul>
+                </div>
+            </div>
+    </nav>
+
+    <!-- 메인 내용 -->
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <h3>템플릿 설정</h3>
+                <!-- 템플릿 설정 상태 -->
+                <input type="text" id="template_state" value="aa" style="display: none"></input>
+                <hr><br>
+            </div>
+        </div>
+        <form id="img_area_form">
+            <div class="container">
+                <div class="row my-5">
+                    <div class="col-md-12">
+                        <div class="source-url">
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt">인식할 파일을 드래그하거나 클릭하여 선택해주세요.<br>(PDF 파일은 미리보기 기능이 없습니다.)</span>
+                                <input type="file" class="drop-zone__input" style="display: none;"
+                                 name="file-chooser" id="file-chooser" multiple="multiple"
+                                  accept="image/*, .pdf" onchange="changeImage()">
+                            </div>                            <!-- <a href="javascript:gui_loadImage(document.getElementById('src').getAttribute('src'))"
+                                class="source_accept">이미지 업로드</a><br/> -->
+                            </br>
+                        </div>
+                        <!-- 업로드 이미지 링크 -->
+                        <img id="src" src="" style="display: none;"></img>
+                    </div>
+                </div>
+                <div class="row my-5">
+                    <div class="col-md-7" style="border:1px solid">
+                        <div id="pic_container">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <!-- 템플릿 불러오기 & 템플릿 저장 -->
+                        <div class="form-group form-inline">
+                            <label for="template_name">템플릿 명</label>
+                            <input type="text" name="template_name" id="template_name" tabindex="1" class="form-control"
+                            placeholder="템플릿 이름을 입력하세요." value="">
+                            <button type="button" class="btn btn-primary" onclick="resetSetting()">
+                                설정 초기화</button>
+                        </div>
+                        <!-- 템플릿 옵션 -->
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend>
+                                    <a onclick="toggleFieldset(this.parentNode.parentNode)">템플릿 설정</a>
+                                </legend>
+                                <div id="option_container" style="border-bottom: solid 1px #efefef">
+                                    <table cellspacing="0" width="100%">
+                                        <tr>
+                                            <td width="20%">
+                                                <div id="button_container">
+                                                    <!-- buttons come here -->
+                                                    <img src="icon/add.gif" onclick="myimgmap.addNewArea()"
+                                                        alt="Add new" title="Add new area"
+                                                        style="margin: 0 2px; cursor: pointer;" />
+                                                    <img src="icon/delete.gif"
+                                                        onclick="myimgmap.removeArea(myimgmap.currentid)"
+                                                        alt="Delete selected" title="Delete selected area"
+                                                        style="margin: 0 2px; cursor: pointer;" />
+                                                    <!-- <img src="/imagemap/zoom.gif" id="i_preview" onclick="myimgmap.togglePreview();"
+                                                alt="Preview img" title="Preview image map"
+                                                style="margin: 0 2px; cursor: pointer;" />
+                                            <img src="/imagemap/html.gif" onclick="gui_htmlShow()" alt="Get HTML"
+                                                title="Get image map HTML" style="margin: 0 2px; cursor: pointer;" /> -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <label for="dd_zoom">비율</label>:
+                                                <select onchange="gui_zoom(this)" id="dd_zoom">
+                                                    <option value='0.25'>25%</option>
+                                                    <option value='0.5'>50%</option>
+                                                    <option value='1' selected="1">100%</option>
+                                                    <option value='2'>200%</option>
+                                                    <option value='3'>300%</option>
+                                                </select>
+                                                <!-- <label for="dd_output">Output</label>: -->
+                                                <select id="dd_output" onchange="return gui_outputChanged(this)"
+                                                    style="display: none;">
+                                                    <option value='imagemap'>Standard imagemap</option>
+                                                    <option value='css'>CSS imagemap</option>
+                                                    <option value='wiki'>Wiki imagemap</option>
+                                                </select>
+                                            </td>
+                                            <td width="50%">
+                                                <!-- <input type="checkbox" id="bb" onClick="toggleBoundingBox(this)" /><label
+                                                for="bb">bounding
+                                                box</label>&nbsp; -->
+                                                <label>라벨 종류</label>:
+                                                <select onchange="changelabeling(this)">
+                                                    <option value=''>No labeling</option>
+                                                    <option value='%n' selected='1'>숫자</option>
+                                                    <option value='%a'>필드</option>
+                                                    <!-- <option value='%h'>Label with href</option> -->
+                                                    <!-- <option value='%c'>Label with coords</option> -->
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div id="form_container" style="clear: both;">
+                                    <!-- form elements comehere -->
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="template_add()">
+                                템플릿 생성</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <br><br><br>
+    </div>
+
+
+    <!-- 하단 내용 -->
+    <footer style="background-color: #000000; color: #ffffff">
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-sm-2" style="text-align: center;">
+                    <h5>Copyright &copy; 2021</h5>
+                    <h5>Capston Design</h5>
+                </div>
+                <div class="col-sm-8" style="text-align: left;">
+                    <h4>OCR Web Service</h4>
+                    <h4>사용자에게 이미지를 문자로 변환해주는 웹 서비스</h4>
+                </div>
+                <div class="col-sm-2" style="text-align: center;">
+                    <div class="btn-group" role="group">
+                        <a href="/ocr.html" class="list-group-item">홈</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <!-- 기본 기능 -->
+    <script src="js/function.js"></script>
+    <script src="js/d_d.js"></script>
+
+    <!-- 프로그레스바 -->
+    <script>
+        $(document).ready(function() {
+            $("#loading").hide();
+        });
+    </script>
+
+    <!-- 이미지 크롭 -->
+    <script src="js/imagemap/imgmap_packed.js"></script>
+    <script src="js/imagemap/default_interface.js"></script>
+    <script src="js/imagemap/u.js"></script>
+    <!-- <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-729919-1', 'auto');
+        ga('send', 'pageview');
+    </script> -->
+
+</body>
+
+</html>
