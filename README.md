@@ -1,2 +1,2 @@
 # capstone
-capstone course
+2021 4-2 캡스톤디자인(03.02 ~12.15)
